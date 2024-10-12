@@ -1,5 +1,5 @@
 <?php
-$servername = "34.29.9.49";
+$servername = "localhost";
 $username = "bmadev";
 $password = "d3v1a";
 $database = "PRUEBA_DB_CAJA_FINTECH";
