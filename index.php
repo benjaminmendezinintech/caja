@@ -62,25 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO CAT_USUARIOS (COD_USUARIO, CORREO_USUARIO, TIP_USUARIO, COD_PERMISOS, COD_PASS, FEC_ACTUALIZACION, MCA_INHABILITADO) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssssss", $COD_USUARIO, $CORREO_USUARIO, $TIP_USUARIO, $COD_PERMISOS, $COD_PASS, $FEC_ACTUALIZACION, $MCA_INHABILITADO);
-    if ($stmt->execute()) {
-    echo 
-        '
-          <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script>
-              Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "Bienvenido",
-                  showConfirmButton: false,
-                  timer: 5000
-              }).then(function() {
-                    window.location = "http://34.29.9.49/caja/";
-              });
-          </script>
-          ';
-      } else {
-          echo "Error: " . $stmt->error;
-      }
+    if (!$stmt->execute()) {
+        echo "Error en inserción en CAT_USUARIOS: " . $stmt->error;
+    }
     $stmt->close();
 
     // Inserción en CAT_TERCEROS   
