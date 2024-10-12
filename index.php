@@ -81,8 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 showConfirmButton: false,
                 timer: 5000
             }).then(function() {
-                window.location = "
-                index.php";
+                  window.location = "http://34.29.9.49/caja//index.php";
             });
         </script>
         ';
@@ -123,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 showConfirmButton: false,
                 timer: 2000
             }).then(function() {
-                window.location = "http://34.29.9.49/caja/";
+                window.location = "http://34.29.9.49/caja//index.php";
             });
         </script>
         ';
