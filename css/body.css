@@ -178,6 +178,8 @@ body {
     width: 90%;
     max-width: 1200px;
 }
+
+
 /* Media Queries para responsividad */
 @media (max-width: 1000px) {
     .card {

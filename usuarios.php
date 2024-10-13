@@ -1,4 +1,9 @@
 <?php
+// Habilitar la visualización de errores
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
 session_start();
 require_once 'includes/configuration.php';
 
@@ -20,6 +25,7 @@ $APE_PATERNO = ['APE_PATERNO'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios - Sistema Financiero</title>
+    <link rel="shortcut icon" href="img/icono.ico">
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" href="css/styless.css">
@@ -63,23 +69,6 @@ $APE_PATERNO = ['APE_PATERNO'];
 </head>
 <body>
 <div class="container">
-      <div class="logo">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32.519"
-          height="30.7"
-          viewBox="0 0 32.519 30.7"
-          fill="#363b46"
-        >
-          <g id="Logo" transform="translate(-90.74 -84.875)">
-            <path
-              id="B"
-              d="M14.378-30.915c-5.124,0-9.292,3.767-9.292,10.228S9.254-10.46,14.378-10.46h1.471c5.124,0,9.292-3.767,9.292-10.228s-4.168-10.228-9.292-10.228H14.378M11.7-33.456h6.819A12.768,12.768,0,0,1,31.29-20.687,12.768,12.768,0,0,1,18.522-7.919H11.7A12.768,12.768,0,0,1-1.065-20.687C-2.4-51.282,4.652-33.456,11.7-33.456Z"
-              transform="translate(91.969 123.494)"
-            />
-          </g>
-        </svg>
-      </div>
       <ul class="link-items">
       <li class="link-item">
           <a href="dashboard.php" class="link">

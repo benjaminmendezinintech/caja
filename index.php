@@ -1,9 +1,8 @@
 <?php
-
 // Habilitar la visualización de errores
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 include 'includes/scripts.php';
 include 'includes/configuration.php';
@@ -120,6 +119,7 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="shortcut icon" href="img/icono.ico">
     <link rel="stylesheet" href="css/login/style.css">
 </head>
 <body>

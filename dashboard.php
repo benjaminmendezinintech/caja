@@ -1,6 +1,11 @@
 <?php
+// Habilitar la visualización de errores
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
+
 session_start();
-date_default_timezone_set('America/Mexico_City');
 require_once 'includes/functions.php';
 
 if (!isset($_SESSION['user'])) {
@@ -15,45 +20,14 @@ $saldo_total = 0;
 $suma_depositos = 0;
 $suma_retiros = 0;
 $sumatorias_por_tipo = [];
+$suma_depositos = 0;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" || $user_info['COD_PERMISOS'] != '99') {
-    if ($user_info['COD_PERMISOS'] == '99') {
-        $id_tercero = $_POST['id_tercero'];
-        $tip_tercero = $_POST['tip_tercero'];
-    } else {
-        $id_tercero = $user_info['ID_TERCERO'];
-        $tip_tercero = $user_info['TIP_TERCERO'];
-    }
+$id_tercero = $user_info['ID_TERCERO'];
+$tip_tercero = $user_info['TIP_TERCERO'];
+$depositos = deposito($id_tercero, $tip_tercero);
 
-    $movimientos = get_movimientos($id_tercero, $tip_tercero);
-    
-    $saldo_acumulado = 0;
-    foreach ($movimientos as $key => $mov) {
-        $imp_retiro = floatval($mov['IMP_RETIRO']);
-        $imp_deposito = floatval($mov['IMP_DEPOSITO']);
-        
-        $saldo_acumulado += $imp_deposito + $imp_retiro;
-        $movimientos[$key]['SALDO'] = $saldo_acumulado;
-        
-        $suma_depositos += $imp_deposito;
-        $suma_retiros += $imp_retiro;
-        
-        $tipo_movimiento = $mov['DESC_MOVIMIENTO'];
-        if (!isset($sumatorias_por_tipo[$tipo_movimiento])) {
-            $sumatorias_por_tipo[$tipo_movimiento] = 0;
-        }
-        $sumatorias_por_tipo[$tipo_movimiento] += $imp_deposito + $imp_retiro;
-    }
-    $saldo_total = $saldo_acumulado;
-    
-    // Añadir el concepto 'Prestamo por liquidar:' al final de las sumatorias
-    $prestamo_por_liquidar = $sumatorias_por_tipo['PRESTAMO:'] ?? 0;
-    $sumatorias_por_tipo['Prestamo por liquidar:'] = $prestamo_por_liquidar;
-}
-
-function formatDate($date) {
-    $dateObj = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-    return $dateObj->format('d-M-Y');
+foreach ($depositos as $movimiento) {
+    $suma_depositos += floatval($movimiento['IMP_DEPOSITO']);
 }
 ?>
 
@@ -64,29 +38,14 @@ function formatDate($date) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Sistema Financiero</title>
+    <link rel="shortcut icon" href="img/icono.ico">
     <link rel="stylesheet" href="css/body.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
 </head>
 <body>
 <div class="container">
-      <div class="logo">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32.519"
-          height="30.7"
-          viewBox="0 0 32.519 30.7"
-          fill="#363b46"
-        >
-          <g id="Logo" transform="translate(-90.74 -84.875)">
-            <path
-              id="B"
-              d="M14.378-30.915c-5.124,0-9.292,3.767-9.292,10.228S9.254-10.46,14.378-10.46h1.471c5.124,0,9.292-3.767,9.292-10.228s-4.168-10.228-9.292-10.228H14.378M11.7-33.456h6.819A12.768,12.768,0,0,1,31.29-20.687,12.768,12.768,0,0,1,18.522-7.919H11.7A12.768,12.768,0,0,1-1.065-20.687C-2.4-51.282,4.652-33.456,11.7-33.456Z"
-              transform="translate(91.969 123.494)"
-            />
-          </g>
-        </svg>
-      </div>
-      <ul class="link-items">
+       <ul class="link-items">
       <li class="link-item">
           <a href="dashboard.php" class="link">
             <ion-icon name="cube-outline"></ion-icon>
@@ -151,30 +110,29 @@ function formatDate($date) {
 <div class="main-content">
     <div class="status-container">
         <div class="status-box">
-            <h4>Bienvenido <?php echo $nombre_completo; ?></h4>
-
-         <!-- Aquí se cargará el estado del ahorro -->
+            <h2>Bienvenido </h2>
+            <h3><?php echo $nombre_completo; ?></h3>
         </div>
 </div>
 
 <div class="main-content">
     <div class="status-container">
         <div class="status-box">
-            <h4>Estado del Ahorro</h4>
+            <h4>Total de tus ahorros</h4>
             <p id="ahorro-estado"> $<?php echo number_format($suma_depositos, 2); ?></p> <!-- Aquí se cargará el estado del ahorro -->
         </div>
         <div class="status-box">
-            <h4>Estado del Préstamo</h4>
+            <h4>Total de tus prestamos</h4>
             <p id="prestamo-estado">$<?php echo number_format($suma_depositos, 2); ?></p> <!-- Aquí se cargará el estado del préstamo -->
         </div>
         <div class="status-box">
             <h4>Rendimiento del Interés Anual</h4>
-            <p id="interes-estado">Cargando...</p> <!-- Aquí se cargará el rendimiento del interés -->
+            <p id="interes-estado">10%</p> <!-- Aquí se cargará el rendimiento del interés -->
         </div>
     </div>
 
     <div class="chart-container">
-        <canvas id="ahorro-chart"></canvas> <!-- Aquí irá el gráfico -->
+        <canvas id="ahorro-chart"></canvas> 
     </div>
 </div>
 

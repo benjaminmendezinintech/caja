@@ -1,156 +1,83 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;800&display=swap');
 
-*{
+
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Nunito', sans-serif;
-    font-size: 20px;
+    font-size: 18px; /* Tamaño de fuente más pequeño para pantallas pequeñas */
 }
 
-body{
+body {
     background-color: #fff59d;
-    min-width: 400px;
+    min-width: 360px; /* Asegura que el contenido no se desborde */
 }
 
-.header{
+.container {
+    display: flex;
+    flex-direction: column; /* Coloca los formularios uno debajo del otro */
+    align-items: center; /* Centra los formularios */
+    padding: 20px;
+}
+
+.container-form {
+    width: 90%; /* Utiliza el 90% del ancho de la pantalla */
+    max-width: 400px; /* Ancho máximo para no exagerar en pantallas grandes */
+    margin: 10px 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    font-size: 22px; /* Tamaño de encabezado más pequeño */
+    margin-bottom: 15px;
+    text-align: center; /* Centra el texto */
+}
+
+.container-input {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.container-input input {
+    width: 100%; /* Full width para campos de entrada */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px; /* Tamaño de fuente para inputs */
+}
+
+.button {
+    width: 100%; /* Full width para botones */
+    padding: 10px;
     background-color: #1b3039;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 85px;
-    padding: 5px 10%;
-}
-
-.header .logo{
-    cursor: pointer;
-    margin-right: auto;
-}
-
-.header .logo img{
-    height: 70px;
-    width: auto;
-    transition: all 0.3s;
-}
-
-.header .logo img:hover{
-    transform: scale(1.2);
-}
-
-.header .nav-links{
-    list-style: none;
-}
-
-.header .nav-links li{
-    display: inline-block;
-    padding: 0 20px;    
-}
-
-.header .nav-links li:hover,
-/**/.overlay a:hover{
-    transform: scale(1.1);
-}
-
-.header .nav-links a{
-    font-size: 700;
-    color: #eceff1; 
-}
-
-.header .nav-links a:hover{
-    color: #ffbc0e;
-}
-
-/**/.menu {
-    display:none;
-}
-
-.header .btn button,
-/**/.header .menu button{
-    margin-left: 20px;
-    font-weight: 700;
-    color: #1b3039;
-    padding: 9px 25px;
-    background: #eceff1;
+    color: white;
     border: none;
-    border-radius: 50px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease 0s;
+    transition: background-color 0.3s;
+    font-size: 18px; /* Tamaño de fuente para botones */
 }
 
-.header .btn button:hover,
-/**/.header .menu button:hover{
-    background-color: #e2f1f8;
-    color: #ffbc0e;
-    transform: scale(1.1);
+.button:hover {
+    background-color: #ffbc0e; /* Cambio de color al pasar el mouse */
 }
 
-
-/**/@media screen and (max-width: 800px){
-    .nav-links, .btn {
-        display: none;
+/* Media Queries para Responsividad */
+@media screen and (max-width: 360px) {
+    h2 {
+        font-size: 20px; /* Reduce el tamaño del encabezado en pantallas pequeñas */
     }
-    .menu {
-        display: inherit;
+
+    .button {
+        font-size: 16px; /* Tamaño de fuente más pequeño en botones */
     }
-}
 
-
-
-/*Nav Mobile*/
-
-.header a{
-    text-decoration: none;  
-    /*borramos el que teniamos en .header .nav-links a*/ 
-}
-
-.header .overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    background-color: rgba(33, 49, 63, .95);
-    overflow: hidden;
-    transition: all 0.3s ease 0s;
-}
-
-.header .overlay .overlay-content{
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;    
-}
-
-.header .overlay a{
-    padding: 15px;
-    font-size: 36px;
-    display: block;
-    transition: all 0.3s ease 0s;
-    font-weight: 700;
-    color: #eceff1;
-}
-
-.header .overlay a:hover, 
-.header .overlay a:focus{
-    color: #ffbc0e;
-}
-
-.header .overlay .close{
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 65px;
-}
-
-@media screen and (max-height:450px) {
-    .header .overlay a{
-        font-size: 20px;
-    }
-    .header .overlay .close{
-        font-size: 40px;
-        top: 15px;
-        right: 35px;
+    body {
+        font-size: 16px; /* Tamaño de fuente más pequeño en cuerpo */
     }
 }

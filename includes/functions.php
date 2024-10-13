@@ -5,8 +5,8 @@ require_once 'db_connection.php';
 
 function validate_user($username, $password) {
     $conn = connect_to_database();
-    $stmt = $conn->prepare("SELECT * FROM CAT_USUARIOS WHERE CORREO_USUARIO = ? AND COD_PASS = ? AND MCA_INHABILITADO = 'N'");
-    $stmt->bind_param("ss", $username, $password);
+    $stmt = $conn->prepare("SELECT * FROM CAT_USUARIOS WHERE CORREO_USUARIO = ? OR TELEFONO_USUARIO = ? AND COD_PASS = ? AND MCA_INHABILITADO = 'N'");
+    $stmt->bind_param("sss", $username,$username, $password);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
@@ -144,4 +144,27 @@ function generar_estado_cuenta_pdf($id_tercero, $tip_tercero) {
     $conn->close();
     return $pdf_file;
 }
+
+// FUNCION CONSULTA DEPOSITO
+
+function deposito($id_tercero, $tip_tercero) {
+    $conn = connect_to_database();
+    $stmt = $conn->prepare("SELECT HM.FEC_REGISTRO, TM.DESC_MOVIMIENTO, HM.IMP_RETIRO, HM.IMP_DEPOSITO 
+                            FROM HIS_MOVIMIENTOS HM JOIN CAT_TIP_MOVIMIENTOS TM ON HM.COD_MOVIMIENTO = TM.COD_MOVIMIENTO
+                            WHERE HM.ID_TERCERO = ? AND HM.TIP_TERCERO = ? AND DESC_MOVIMIENTO = 'DEPOSITO AHORR.' ORDER BY HM.FEC_REGISTRO;");
+    $stmt->bind_param("ss", $id_tercero, $tip_tercero);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $deposito = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $conn->close();
+    return $deposito;
+}
+
+
+
+
 ?>
+
+
+
