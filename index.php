@@ -63,8 +63,7 @@ $sql = "INSERT INTO CAT_USUARIOS (COD_USUARIO, CORREO_USUARIO, TIP_USUARIO, COD_
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
-    // Error en la preparación de la consulta
-    echo "Error en la preparación de la consulta: " . $conn->error;
+    echo "<script>console.error('Error en la preparación de la consulta: " . $conn->error . "');</script>";
     exit();
 }
 
@@ -72,12 +71,10 @@ $stmt->bind_param("sssssss", $COD_USUARIO, $CORREO_USUARIO, $TIP_USUARIO, $COD_P
 $executeResult = $stmt->execute();
 
 if ($executeResult === false) {
-    // Error al ejecutar la consulta
-    echo "Error al ejecutar la consulta: " . $stmt->error;
+    echo "<script>console.error('Error al ejecutar la consulta: " . $stmt->error . "');</script>";
 } else {
-    echo "Inserción exitosa.";
+    echo "<script>console.log('Inserción exitosa.');</script>";
 }
-
 $stmt->close();
     // Inserción en CAT_TERCEROS   
     $sql = "INSERT INTO CAT_TERCEROS (ID_TERCERO, TIP_TERCERO, NOM_TERCERO, APE_PATERNO, APE_MATERNO, FEC_ACTUALIZACION, MCA_INHABILITADO, COD_USUARIO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
