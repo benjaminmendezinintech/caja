@@ -20,12 +20,12 @@ $user_info = $_SESSION['user_info'];
 $ID_TERCERO = $_POST['ID_TERCERO'];
 $TIP_TERCERO = $_POST['TIP_TERCERO'];
 date_default_timezone_set('America/Mexico_City');
-$FEC_REGISTRO = date('Y-m-d');
+$FEC_REGISTRO = date('Y-m-d H:i:s');
 $COD_MOVIMIENTO = $_POST['COD_MOVIMIENTO'];
 $IMP_RETIRO = $_POST['IMP_RETIRO'] ?? NULL; // Si no se envía, se establece como NULL
 $IMP_DEPOSITO = $_POST['IMP_DEPOSITO'] ?? NULL;
 date_default_timezone_set('America/Mexico_City');
-$FEC_ACTUALIZACION = date('Y-m-d');
+$FEC_ACTUALIZACION = date('Y-m-d H:i:s');
 $MCA_INHABILITADO = $_POST['MCA_INHABILITADO'];
 $COD_USUARIO = $_SESSION['user'];
 // Preparar la consulta SQL
