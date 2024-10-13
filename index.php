@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $COD_PERMISOS = 1;
     $COD_PASS = password_hash($_POST['COD_PASS'], PASSWORD_BCRYPT);
     date_default_timezone_set('America/Mexico_City');
-    $FEC_ACTUALIZACION = date('Y-m-d');
+    $FEC_ACTUALIZACION = date('Y-m-d H:i:s');
     $MCA_INHABILITADO = "N";
 
     // Obtener fecha
