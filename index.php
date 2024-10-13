@@ -58,13 +58,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ID_TERCERO = $nuevo_id; // Este será el nuevo ID que se insertará
     $TIP_TERCERO = 1;
 
-    // Inserción en CAT_USUARIOS
-    $sql = "INSERT INTO CAT_USUARIOS (COD_USUARIO, CORREO_USUARIO, TIP_USUARIO, COD_PERMISOS, COD_PASS, FEC_ACTUALIZACION, MCA_INHABILITADO) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssss", $COD_USUARIO, $CORREO_USUARIO, $TIP_USUARIO, $COD_PERMISOS, $COD_PASS, $FEC_ACTUALIZACION, $MCA_INHABILITADO);
-    $stmt->execute();     
-    $stmt->close();
+ // Inserción en CAT_USUARIOS
+$sql = "INSERT INTO CAT_USUARIOS (COD_USUARIO, CORREO_USUARIO, TIP_USUARIO, COD_PERMISOS, COD_PASS, FEC_ACTUALIZACION, MCA_INHABILITADO) VALUES (?, ?, ?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
 
+if ($stmt === false) {
+    // Error en la preparación de la consulta
+    echo "Error en la preparación de la consulta: " . $conn->error;
+    exit();
+}
+
+$stmt->bind_param("sssssss", $COD_USUARIO, $CORREO_USUARIO, $TIP_USUARIO, $COD_PERMISOS, $COD_PASS, $FEC_ACTUALIZACION, $MCA_INHABILITADO);
+$executeResult = $stmt->execute();
+
+if ($executeResult === false) {
+    // Error al ejecutar la consulta
+    echo "Error al ejecutar la consulta: " . $stmt->error;
+} else {
+    echo "Inserción exitosa.";
+}
+
+$stmt->close();
     // Inserción en CAT_TERCEROS   
     $sql = "INSERT INTO CAT_TERCEROS (ID_TERCERO, TIP_TERCERO, NOM_TERCERO, APE_PATERNO, APE_MATERNO, FEC_ACTUALIZACION, MCA_INHABILITADO, COD_USUARIO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);

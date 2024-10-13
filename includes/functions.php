@@ -2,28 +2,19 @@
 require_once 'db_connection.php';
 
 
-////Funcion para obtener la coneccion de al login
-function validate_user($username, $password) {
-    $conn = connect_to_database(); // Asegúrate de tener una función para conectarte a la base de datos
 
-    // Consulta el usuario en la base de datos
-    $sql = "SELECT COD_USUARIO, COD_PASS FROM CAT_USUARIOS WHERE CORREO_USUARIO = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
+function validate_user($username, $password) {
+    $conn = connect_to_database();
+    $stmt = $conn->prepare("SELECT * FROM CAT_USUARIOS WHERE CORREO_USUARIO = ? AND COD_PASS = ? AND MCA_INHABILITADO = 'N'");
+    $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $result = $stmt->get_result();
-
-    // Si hay un resultado, verifica la contraseña
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        // Verifica la contraseña
-        if (password_verify($password, $user['COD_PASS'])) {
-            return $user; // Devuelve el usuario si la contraseña es correcta
-        }
-    }
-
-    return false; // Devuelve false si no se encuentra el usuario o la contraseña no coincide
+    $user = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+    return $user;
 }
+
 
 ////Funcion para obtener la informacion del usuario 
 function get_user_info($cod_usuario) {

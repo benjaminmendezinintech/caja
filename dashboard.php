@@ -55,11 +55,6 @@ function formatDate($date) {
     $dateObj = DateTime::createFromFormat('Y-m-d H:i:s', $date);
     return $dateObj->format('d-M-Y');
 }
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -185,6 +180,57 @@ function formatDate($date) {
 
 <!---------------------------------------------------------------------------->
    
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('ahorro-chart').getContext('2d');
+
+        // Datos ficticios
+        const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"];
+        const ahorrosMensuales = [100, 150, 200, 250, 300];
+
+        // Crear gráfico
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Tipo de gráfico
+            data: {
+                labels: meses, // Eje X
+                datasets: [{
+                    label: 'Ahorro por Mes',
+                    data: ahorrosMensuales, // Datos de la gráfica
+                    backgroundColor: 'rgba(34, 142, 230, 1)',
+                    borderColor: 'rgba(34, 142, 230, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Monto en $'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Meses'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 <script
       type="module"
