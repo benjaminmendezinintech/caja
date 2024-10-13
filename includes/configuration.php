@@ -1,7 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "34.29.9.49/";
+$username = "bmadev";
+$password = "d3v1a";
 $database = "PRUEBA_DB_CAJA_FINTECH";
 
 // Crear conexión
