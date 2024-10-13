@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "bmadevr";
+$username = "bmadev";
 $password = "d3v1a";
 $database = "PRUEBA_DB_CAJA_FINTECH";
 
